@@ -9,7 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+    
+      - name: Code checkout.
+        uses: actions/checkout@v4
 
       - name: Run a one-line printing gh checkout directory.
         run: echo $GITHUB_WORKSPACE 
@@ -18,16 +20,31 @@ jobs:
       - name: Run a one-line listing dir for all workflows.
         run: ls $RUNNER_WORKSPACE
 
-      - name: Run a one-line listing dir where whole code is checked-out.
+      - name: Run a one-line listing dir where whole gh repo code is checked-out.
         run: ls $GITHUB_WORKSPACE
         
       - name: Whoami.
         run: whoami
 
-      - name: Check env.
+      - name: Check env. Use these in workflows. 
         run: printenv
 
       - name: Run a multi-line script
         run: | 
           echo This is a multi
           echo line command.
+
+      - name: Set up Node.js. 
+        uses: actions/setup-node@v2
+        with: #see input values for the action. Generally, all input actions are set wth with.
+          node-version: '14'
+      
+      - name: See where those are installed. Look at docs of actions/setup-node@v2.
+        run: |
+          echo "This action is creating a local .npmrc file on the runner that configures the default registry and scopes"
+          echo "This action can take a gh authentication token for accessing private repos and publishing to pckg mngmnt."
+
+      - name: Echo .npmrc file.
+        run: |
+          ls /home/runner/
+          cat /home/runner/.npmrc
