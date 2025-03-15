@@ -19,3 +19,18 @@ jobs:
         echo "Repository: ${{ github.repository }}"
         echo "Actor: ${{ github.actor }}"
         echo "SHA: ${{ github.sha }}"
+        echo "Action name: ${{ github.action }}"
+        echo "The path where action is located(only supported in composite actions): ${{ github.action_path }}"
+        echo "Use that file to access files located in the same repo as the action"
+        echo "Path on the runner to the file that sets env vars from workflow commands. This file is unique for each step in a job: ${{ workflow.env }}"
+#do not use those two with run keyword
+#github.action_repository -> owner and repo name of an action for the step executing an action
+#github.action_ref -> ref of the action being executed within a step (e.g. v2)
+#github.action_status; github.actor
+
+    - name: Fully formed ref of the branch that triggered the workflow run. 
+      run: echo ${{ github.ref }}
+      #e.g. for workflows triggered by push, this is the branch or tag that was pushed. For wfs triggered by pull_requests, this is the pull request merge branch. For workflows triggered by release, this is the release tag created
+    - name: Utilize if confition with gh context.
+      run: echo "This step only runs on the main branch."
+      if: github.ref == 'refs/heads/main'
