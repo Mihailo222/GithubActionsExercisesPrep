@@ -47,4 +47,4 @@ jobs:
       - name: Echo .npmrc file.
         run: |
           ls /home/runner/
-          cat /home/runner/.npmrc
+   #       cat /home/runner/.npmrc
