@@ -54,4 +54,5 @@ jobs:
           ls /home/runner/runners
           echo "LIST factory:"
           ls /home/runner/factory
-   #       cat /home/runner/.npmrc
+          echo "LIST .nvm"
+          ls -la /home/runner/.nvm/
