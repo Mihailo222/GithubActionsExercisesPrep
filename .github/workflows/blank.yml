@@ -11,10 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run a one-line printing gh workflow directory.
+      - name: Run a one-line printing gh checkout directory.
         run: echo $GITHUB_WORKSPACE 
         #/home/runner/work/GithubActionsExercisesPrep/GithubActionsExercisesPrep
-
+      - name: Run a one-line listing dir for all workflows.
+        run: ls $RUNNER_WORKSPACE
+        
       - name: Whoami.
         run: whoami
 
