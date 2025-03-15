@@ -56,3 +56,14 @@ jobs:
           ls /home/runner/factory
           echo "LIST .nvm"
           ls -la /home/runner/.nvm/
+          echo "CAT .npmrc:"
+          cat /home/runner/.nvm/.npmrc
+
+      - name: Check if there is docker preinstalled bc these actions are containers.
+        run: docker -v
+
+      - name: List docker images.
+        run: docker image ls 
+
+      - name: List docker containers.
+        run: docker ps -a
