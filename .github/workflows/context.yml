@@ -22,7 +22,7 @@ jobs:
         echo "Action name: ${{ github.action }}"
         echo "The path where action is located(only supported in composite actions): ${{ github.action_path }}"
         echo "Use that file to access files located in the same repo as the action"
-        echo "Path on the runner to the file that sets env vars from workflow commands. This file is unique for each step in a job: ${{ workflow.env }}"
+        echo "Path on the runner to the file that sets env vars from workflow commands. This file is unique for each step in a job: ${{ github.env }}"
 #do not use those two with run keyword
 #github.action_repository -> owner and repo name of an action for the step executing an action
 #github.action_ref -> ref of the action being executed within a step (e.g. v2)
