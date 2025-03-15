@@ -1,0 +1,15 @@
+name: Contexts
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+jobs:
+  contexts-exercise:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Echo the top-level context available.
+      run: echo github
