@@ -1,0 +1,22 @@
+# bitne env varijable:
+GITHUB_WORKSPACE=/home/runner/work/GithubActionsExercisesPrep/GithubActionsExercisesPrep
+GITHUB_PATH=/home/runner/work/_temp/_runner_file_commands/add_path_ec7826c2-a53d-441a-853e-b934aa912b2c
+GITHUB_RUN_NUMBER=4
+RUNNER_NAME=GitHub-Actions-1000000002
+GITHUB_REPOSITORY_OWNER_ID=92820769
+GITHUB_TRIGGERING_ACTOR=Mihailo222
+GITHUB_REPOSITORY_ID=948896481
+GITHUB_SHA=adbe6727e2dbfa5deb37b4692ba61f30d1c55908
+GITHUB_WORKFLOW_REF=Mihailo222/GithubActionsExercisesPrep/.github/workflows/blank.yml@refs/heads/main
+RUNNER_ENVIRONMENT=github-hosted
+GITHUB_REF=refs/heads/main
+RUNNER_OS=Linux
+RUNNER_ARCH=X64
+GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+GITHUB_ACTOR=Mihailo222
+USER=runner
+GITHUB_JOB=build
+RUNNER_WORKSPACE=/home/runner/work/GithubActionsExercisesPrep
+
+GITHUB_WORKSPACE -> radni direktorijum za korake u nasem workflow-u, ovo je podrazumevana lokacija gde se vrsi checkout koda nakon actions/checkout -> lokacija kloniranog repoa 
+RUNNER_WORKSPACE -> ovo je lokacija gde se desavaju svi workflow-ovi tj. glavni radni direktorijum za sve radne procese na runer-u. To je dir na runner-u gde se svi workflow-ovi izvrsavaju. Ovde se nalaze poddirektorijumi za svaki workflow koji se pokrece na runner-u !
