@@ -12,4 +12,4 @@ jobs:
     steps:
 
     - name: Echo the top-level context available.
-      run: echo github
+      run: echo "${{ github }}"
