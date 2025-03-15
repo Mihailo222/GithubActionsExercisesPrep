@@ -68,15 +68,34 @@ jobs:
       - name: List docker containers.
         run: docker ps -a
 
-      - name: Install dependencies.
-        run: |
-          pwd
-          npm install
+  #    - name: Install dependencies.
+  #      run: |
+  #        pwd
+  #       npm install
 
-      - name: Run test.
-        run: |
-          pwd
-          npm test
+  #    - name: Run test.
+  #     run: |
+  #        pwd
+  #        npm test
+      - name: Check how to use if/else conditions.
+        run: echo "This step runs because the condition is true."
+        if: github.ref == 'refs/heads/main' #Condition to check if branch is main
+
+      - name: Check for false condition.
+        run: echo "This step runs because condition is false."
+        if: github.ref != 'refs/heads/main' #else statement
+        
+
+        
+
+
+
+
+
+
+
+
+
 
 
 
