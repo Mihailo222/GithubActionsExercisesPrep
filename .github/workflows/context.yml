@@ -13,3 +13,9 @@ jobs:
 
     - name: Echo the top-level context available.
       run: echo "${{ github }}"
+
+    - name: Echo specific Github context properties.
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Actor: ${{ github.actor }}"
+        echo "SHA: ${{ github.sha }}"
