@@ -1,22 +1,21 @@
 name: CI
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-    
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    
-      - uses: actions/checkout@v4
+  on:
+    push:
+      branches: [ "main" ]
 
-      - name: Run a one-line script
-        run: echo $GITHUB_WORKSPACE
+    workflow_dispatch:
 
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Run a one-line printing gh workflow directory.
+          run: echo $GITHUB_WORKSPACE
+
+        - name: Run a multi-line script
+          run: | 
+            echo This is a multi
+            echo line command.
