@@ -67,3 +67,19 @@ jobs:
 
       - name: List docker containers.
         run: docker ps -a
+
+      - name: Install dependencies.
+        run: |
+          pwd
+          npm install
+
+      - name: Run test.
+        run: |
+          pwd
+          npm test
+
+
+
+
+
+        
