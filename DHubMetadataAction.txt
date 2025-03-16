@@ -1,0 +1,53 @@
+This is the output of the following action -> docker/metadata-action@v5:
+
+- with:
+  context: workflow
+  github-token: ***
+
+- Context info
+  eventName: push
+  sha: ab07e5999537d79289b564c40a25cc58669aa8f2
+  ref: refs/heads/main
+  workflow: DockerHub Login
+  action: __docker_metadata-action
+  actor: Mihailo222
+  runNumber: 3
+  runId: 13885510697
+  commitDate: Sun Mar 16 2025 16:58:15 GMT+0000 (Coordinated Universal Time)
+
+- Processing images input
+- Processing tags input
+    type=schedule,pattern=nightly,enable=true,priority=1000
+    type=ref,event=branch,enable=true,priority=600
+    type=ref,event=tag,enable=true,priority=600
+    type=ref,event=pr,prefix=pr-,enable=true,priority=600
+
+- Processing flavor input
+    latest=auto
+    prefix=
+    prefixLatest=false
+    suffix=
+    suffixLatest=false
+
+- Docker image version
+  main
+- Docker tags
+  main
+- Docker labels
+  org.opencontainers.image.created=2025-03-16T16:58:24.570Z
+  org.opencontainers.image.description=
+  org.opencontainers.image.licenses=
+  org.opencontainers.image.revision=ab07e5999537d79289b564c40a25cc58669aa8f2
+  org.opencontainers.image.source=https://github.com/Mihailo222/GithubActionsExercisesPrep
+  org.opencontainers.image.title=GithubActionsExercisesPrep
+  org.opencontainers.image.url=https://github.com/Mihailo222/GithubActionsExercisesPrep
+  org.opencontainers.image.version=main
+- Annotations
+  manifest:org.opencontainers.image.created=2025-03-16T16:58:24.570Z
+  manifest:org.opencontainers.image.description=
+  manifest:org.opencontainers.image.licenses=
+  manifest:org.opencontainers.image.revision=ab07e5999537d79289b564c40a25cc58669aa8f2
+  manifest:org.opencontainers.image.source=https://github.com/Mihailo222/GithubActionsExercisesPrep
+  manifest:org.opencontainers.image.title=GithubActionsExercisesPrep
+  manifest:org.opencontainers.image.url=https://github.com/Mihailo222/GithubActionsExercisesPrep
+  manifest:org.opencontainers.image.version=main
