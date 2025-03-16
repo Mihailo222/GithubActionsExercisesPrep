@@ -8,8 +8,15 @@ jobs:
   login_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Login to DockerHub.
+#      - name: Login to DockerHub with username and password (NOT RECOMMENDED).
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ vars.DOCKERHUB_GMAIL }}
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Login to DockerHub with generated Personal Access Token.
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_GMAIL }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+        #this is the recommended way for accessing 
