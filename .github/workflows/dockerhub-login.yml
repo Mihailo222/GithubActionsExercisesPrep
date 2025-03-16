@@ -20,3 +20,7 @@ jobs:
           username: ${{ vars.DOCKERHUB_GMAIL }}
           password: ${{ secrets.DOCKERHUB_PAT }}
         #this is the recommended way for accessing 
+
+      - name: Extract metadata from Git reference nad GitHub events. 
+        uses: docker/metadata-action@v5
+        
