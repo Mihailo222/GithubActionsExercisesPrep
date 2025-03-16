@@ -17,7 +17,6 @@ jobs:
       - name: Checkout a code into working directory.
         uses: actions/checkout@v4
         
-
       - name: Login to DockerHub with generated Personal Access Token.
         uses: docker/login-action@v3
         with:
@@ -28,10 +27,22 @@ jobs:
       - name: Extract metadata from Git reference nad GitHub events. 
         id: meta #add this id just to reference this step in further steps
         uses: docker/metadata-action@v5
+        with:
+          images: |
+            mihailomahovac/repo_gha     #name of a remote repo
+          tags: |
+            type=raw,value=latest
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value={{date 'YYYYMMDD'}}-{{sha}}
         #u can use this steps with labels:${{ steps.meta.outputs.labels }}
+        
+       
       - name: Build and push to DockerHub.
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: Mihailo222/app:1.0.0
+          tags: ${{ steps.meta.outputs.tags }}
