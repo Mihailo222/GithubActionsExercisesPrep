@@ -1,0 +1,69 @@
+name: Test context workflow
+on:
+  push:
+    branches: main
+env:
+  env_var: WORKFLOW1
+
+#env - workflow, job, step , not runner env vars
+jobs:
+  login_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ENV VARIABLES: Workflow lvl env.
+        run: echo 'Workflow env: ${{ env.workflow_lvl_env }}'
+      
+      - name: ENV VARIABLES: Step lvl env vars.
+        run: echo 'Step env: ${{ env.env_var }}'
+        env:
+          env_var: STEP_LVL
+
+      - name: VARS CONTEXT: Vars runner type. 
+        if: ${{ vars.RUNNER_TYPE == 'Linux' }}
+        run: whoami
+
+      - name: ENV VARS CONTEXT: Pass  environment variables through vars context.
+        run: |
+          echo "GitHub Runner Type: $MACHINE_TYPE"
+          echo "DockerHub user: $DH_USER"
+        env:
+          MACHINE_TYPE: ${{ vars.RUNNER_TYPE }}
+          DH_USER: ${{ vars.DOCKERHUB_GMAIL }}
+
+      - name: VARS CONTEXT: Pass vars as action parameter.
+        uses: actions/hello-world-javascript-action@main
+        with:
+          who-to-greet: ${{ vars.DOCKERHUB_GMAIL }}
+
+#db containers: ephemeral containers; svc contaiers: for non db cases -> running on runners
+#svc continers: e.g. for running integration tests that require access to databases and memory cache; gh brings up containers and deletes it from a runner
+#svc containers can be accessed on a job level ( containers on a runner ); hostname of the svc container is automaically mapped to the label given to the container (hostname of service container configured with label redis is redis)
+#you can configure jobs to run directly on a runner machine, or within a container. 
+#when running jobs from a container, gh connects service container to the job using Docker's user defined bridge network(svc container -> job connection ). While running jobs from svc containers, you can access a service container using the label you configured in the workflow. 
+#when runing jobs directly on runner machine, access service containers via localhost:<port>
+#When a job runs directly on a runner machine, the service running in the Docker container does not expose its ports to the job on the runner by default. You need to map ports on the service container to the Docker host. 
+
+  
+  container-job:
+    # containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that container-job executes in
+    services:
+      #labels used for accessing svc containers
+      redis:
+      #docker hub images
+      image: redis 
+    steps:
+      - name: Use redis information for job that runs within a container.
+        run: docker ps -a
+
+#configure a job that runs directly on a runner and map ports for it to use info from container service. it is done with ports keyword. This time gh uses --publish command to publish the container's ports to the Docker host
+  mapped-container-job:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379 #first one is runner port and second is tcp container port
+#with private registry images you can use jobs.<job_name>.services.<svc_name>.credentials.username/password 
