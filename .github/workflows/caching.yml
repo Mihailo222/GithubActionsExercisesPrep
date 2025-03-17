@@ -1,0 +1,39 @@
+name: "Caching workflow"
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  cache-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore cache.
+        id: cache-restore
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-restore.outputs.cache-hit != 'true' #if the deps are not on gh cloud cache based on key, run npm install
+        run: npm install
+
+      - name: Save cache  #update cloud cache 
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+# job with contents: read and issues: write; use env: GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} for administrator access on a step
+
+# gh hosted vs self hosted
+# runner groups created on self-hosted runners
+# self-hosted runners: regulary monitoring runner status and performance
+# set up alerts for runner failiures or disconnections
+# update runner software regulary; be sure to maintain security patches
+# demonstrate how to monitor, troubleshoot, update self-hosted runners
