@@ -46,3 +46,17 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+ #   env:
+ #     ACTION_SETUP_DEBUG: true # setting additional environment variable to debug more information
+
+ #workflow commands in action to configure runner env
+ #configure a workflow to use a workfow that is being used from current workflow
+ #see caching used in docker build
+
+ #using GitHub environment file 
+      - name: Use environment variables file on  runner! Set runner environemnt variables with $GITHUB_ENV file. 
+        run: |
+          echo "DEMO_ENV='This is a demo'" >> $GITHUB_ENV
+
+
+# publish custom github action: oowner.proj_folder@v1.2.3 
