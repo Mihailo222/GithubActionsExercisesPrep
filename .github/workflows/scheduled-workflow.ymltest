@@ -1,0 +1,107 @@
+name: "Scheduled scan"
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 14 * * 1' #Every Monday on 14 UT
+  
+  workflow_dispatch:
+
+jobs:
+  release-creation-job:
+    name: "Create release job"
+    runs-on: ubuntu-latest
+
+    steps:
+    # code checkout
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Create release #YOU NEED TO CREATE A RELEASE IN ORDER TO UPLOAD ASSET TO IT
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #needed for creating a release on that repository
+        with:
+          tag_name: ${{ github.ref }}  #cbranch that triggered a workflow
+          release_name: ${{ Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          body: | #Add your release notes here
+            ##Instructions
+            - Step 1: ...
+            - Step 2: ...
+
+          #Notes:
+          #- Note 1: ...
+          #- Note 2: ... 
+
+      - name: Upload Release Assets  
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} #know this context !!!
+          asset_path: ./app.zip
+          asset_name: app.zip
+          asset_content_type: application/zip
+          
+            
+        
+#runers > new self-hosted runner > script for runner instalation > built-in labels > 
+  
+#trigger workflow if someone pushes a tag that can be anything.
+
+# on:
+#  push:
+#    tags:
+#      - '*'
+
+#about releases: https://stackoverflow.com/questions/33551505/what-exactly-is-a-release-in-github
+#lightweight and annotated tags: https://git-scm.com/book/en/v2/Git-Basics-Tagging#_annotated_tags
+
+#lightweight -> pointer na commit; storuje samo commit checksum i to je to
+#annotated tag -> stored as an object in the git db: tagger name, email, date,+ lightweight tag data
+#create annotated tag: git tag -a v1.4 -m "my version 1.4" //-m = tagging message
+#git tag -> lista sve tagove
+#git show v1.4 -> shows info associated with tag v1.4: Tagger, Date, Commit, Author, Date
+#supose you forgot to tag a project at the tag v1.2 and now you need to retsg it; just tag commit after you commited: git log --pretty=oneline; (to show commit hashes), git tag -a v1.2 <commit_hash>
+# git push doesn't push a tag !!! You need to do it manually: git push orgin --tags #it pushes both types of tags. Push it just like a new branch.
+# now, when someone clones a project, the tags will appear. 
+
+#delete a tag from local repo:
+#git tag -d v1.4 #deletes tags
+
+#delete a tag from remote repo:
+#git push origin :refs/tags/<tag-name>
+#2nd way:
+#git push origin --delete <tagname>
+#version is applicable on the release
+
+
+#CACHING
+# share packages accross repos
+# caxhing -> npr dependencii koji se svaki pt kada runner se pokrene se moraju dovlaciti sa interneta
+
+  cache-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Node.js modules
+        uses: action/cache@v4
+
+      - name: Cache Node.js modules. #ovaj cache je na nivou job-a??? -> ide u CDN (content delivery network and gh storage)
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+
+
+
+
+       
