@@ -102,6 +102,17 @@ jobs:
 
 
 
+# actions/upload-artifact@v4; actions/download-artifact@v4 -> publish on CDN and pull it 
+# actions/stale@v1 -> remove artifacts from GitHub: mark issues and pull request as stale and remove them after x days of not using it.
+# rbac + least  priviledges principle
+# env:  defined env variables stavljaju ovu varijablu na runner-a. Env vars se override-uju na nivou koraka (step).
+# job sadrzi strategy element, nakon cega se specificira matrix: element koji ima 2 pozicije os; node_version; na primer: os: [win, lin] node_version: [14,16]
+# properties: ${{ matrix.os }} i ${{ matrix.node_version }}
 
 
-       
+#set up environments on GitHub repository settings: add environemnt, configure environment, crate tag specific i branch specific; environemnt secrets and environment variables. One se nalaze na gh runner-u, ali vidljive su datom gh actions environemntu specificno !
+# REPO SECRETS SE NALAZE NA RUNNERIMA ! ENVIRONMENT SECRETS SE NAAZE SAMO NA ONIM RUNNERIMA KOJI SU U DATOM ENVIRONMENTU !!!
+
+
+
+
