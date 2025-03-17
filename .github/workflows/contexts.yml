@@ -11,19 +11,22 @@ jobs:
   login_job:
     runs-on: ubuntu-latest
     steps:
-      - name: ENV VARIABLES: Workflow lvl env_vars.
-        run: echo 'Workflow env: ${{ env.workflow_lvl_env }}'
+    
+      - name: ENV VARIABLES. 
+        run: | 
+          echo "Workflow env: ${{ env.env_var }}"
       
-      - name: ENV VARIABLES: Step lvl env vars.
-        run: echo 'Step env: ${{ env.env_var }}'
+      - name: ENV VARIABLES again
+        run: |
+          echo 'Step env: ${{ env.env_var }}'
         env:
           env_var: STEP_LVL
 
-      - name: VARS CONTEXT: Vars runner type. 
+      - name: VARS CONTEXT
         if: ${{ vars.RUNNER_TYPE == 'Linux' }}
         run: whoami
 
-      - name: ENV VARS CONTEXT: Pass  environment variables through vars context.
+      - name: ENV VARS CONTEXT - combine env and var
         run: |
           echo "GitHub Runner Type: $MACHINE_TYPE"
           echo "DockerHub user: $DH_USER"
@@ -31,7 +34,7 @@ jobs:
           MACHINE_TYPE: ${{ vars.RUNNER_TYPE }}
           DH_USER: ${{ vars.DOCKERHUB_GMAIL }}
 
-      - name: VARS CONTEXT: Pass vars as action parameter.
+      - name: VARS CONTEXT - pass var as an argument of gh action
         uses: actions/hello-world-javascript-action@main
         with:
           who-to-greet: ${{ vars.DOCKERHUB_GMAIL }}
@@ -53,7 +56,7 @@ jobs:
       #labels used for accessing svc containers
       redis:
       #docker hub images
-      image: redis 
+        image: redis 
     steps:
       - name: Use redis information for job that runs within a container.
         run: docker ps -a
