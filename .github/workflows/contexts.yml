@@ -2,6 +2,7 @@ name: Test context workflow
 on:
   push:
     branches: main
+  workflow_dispatch:
 env:
   env_var: WORKFLOW1
 
@@ -10,7 +11,7 @@ jobs:
   login_job:
     runs-on: ubuntu-latest
     steps:
-      - name: ENV VARIABLES: Workflow lvl env.
+      - name: ENV VARIABLES: Workflow lvl env_vars.
         run: echo 'Workflow env: ${{ env.workflow_lvl_env }}'
       
       - name: ENV VARIABLES: Step lvl env vars.
@@ -67,3 +68,21 @@ jobs:
         ports:
           - 6379:6379 #first one is runner port and second is tcp container port
 #with private registry images you can use jobs.<job_name>.services.<svc_name>.credentials.username/password 
+
+# create-labels-job for self-hosted runners
+# configure self-hosted runner poools
+    
+#add a self-hosted runer: new self-hosted runner; runs-on: [self-hosted, linx-custom ] #self-hosted, label-name
+#create a release with actions/create-release action: 
+
+#  release-job:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Create a release
+#        uses: actions/create-release@v2
+#        with:
+#          tag_name: v1.0.0
+#          release_name: "Release v1.0.0"
+#          body: "This release includes bug fixes and new features..."
+#          draft: false
+          
